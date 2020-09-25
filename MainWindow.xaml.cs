@@ -34,8 +34,10 @@ namespace LazyAdmin
             openFileDialog.InitialDirectory = Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments);
             if (openFileDialog.ShowDialog() == true)
             {
-                foreach (string filename in openFileDialog.FileNames)
-                    listOpenFile.Items.Add(System.IO.Path.GetFileName(filename));
+                foreach (string filename in openFileDialog.FileNames) 
+                { 
+                    listOpenFile.Items.Add(System.IO.Path.GetFullPath(filename));
+                }
             }
         }
     }
