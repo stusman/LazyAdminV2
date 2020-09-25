@@ -14,6 +14,7 @@ using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
 using System.IO;
+using System.Diagnostics;
 
 namespace LazyAdmin
 {
@@ -42,6 +43,14 @@ namespace LazyAdmin
         private void btnLogout(object sender, RoutedEventArgs e)
         {
 
+        }
+        private void btn_ClickInstallSoft(object sender, RoutedEventArgs e)
+        {
+            var proccess = new Process();
+            proccess.StartInfo.FileName = "powershell.exe";
+            proccess.StartInfo.Arguments = @"-executionpolicy unrestricted D:\install.ps1";
+            proccess.Start();
+            proccess.WaitForExit();
         }
         private void enterNameFileForUninstallBtn(object sender, RoutedEventArgs e)
         {
