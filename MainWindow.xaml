@@ -13,10 +13,10 @@
         <Button Content="Uninstall Software" HorizontalAlignment="Left" Height="48" Margin="618,340,-18.4,0" VerticalAlignment="Top" Width="150"/>
         <Label Content="Login:" HorizontalAlignment="Left" Height="26" Margin="43,10,0,0" VerticalAlignment="Top" Width="127"/>
         <Label Content="Password:" HorizontalAlignment="Left" Height="26" Margin="304,10,0,0" VerticalAlignment="Top" Width="127"/>
-        <TextBox HorizontalAlignment="Left" Height="20" Margin="43, 40, 0, 0" Width="215" VerticalAlignment="Top"/>
-        <PasswordBox PasswordChar="*" HorizontalAlignment="Left" Height="20" Margin="304,41,0,0" Width="215" VerticalAlignment="Top"/>
-        <Button Content="Login" HorizontalAlignment="Left" Height="25" Margin="539,36,0,0" VerticalAlignment="Top" Width="108"/>
-        <Button Content="Logout" HorizontalAlignment="Left" Height="25" Margin="669,36,0,0" VerticalAlignment="Top" Width="108"/>
+        <TextBox Name="loginText" HorizontalAlignment="Left" Height="20" Margin="43, 40, 0, 0" Width="215" VerticalAlignment="Top"/>
+        <PasswordBox Name="passwordText" PasswordChar="*" HorizontalAlignment="Left" Height="20" Margin="304,41,0,0" Width="215" VerticalAlignment="Top"/>
+        <Button Name="loginBtn" Click="btnLogin" Content="Login" HorizontalAlignment="Left" Height="25" Margin="539,36,0,0" VerticalAlignment="Top" Width="108"/>
+        <Button Content="Logout" Click="btnLogout" HorizontalAlignment="Left" Height="25" Margin="669,36,0,0" VerticalAlignment="Top" Width="108"/>
         <WrapPanel HorizontalAlignment="Center" DockPanel.Dock="Top" Margin="100,150,0,10">
             <Button x:Name="btnOpenFile" Width="150" Height="30" Click="btnOpenFile_Click" Content="Open file"/>
         </WrapPanel>

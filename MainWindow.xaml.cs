@@ -22,9 +22,25 @@ namespace LazyAdmin
     /// </summary>
     public partial class MainWindow : Window
     {
+        static string login = "abrakadabra";
+        static string password = "abrakadabra";
         public MainWindow()
         {
             InitializeComponent();
+        }
+        private void btnLogin(object sender, RoutedEventArgs e)
+        {
+            if(loginText.Text.Length > 0 && passwordText.Password.Length > 0)
+            {
+                login = loginText.Text;
+                password = passwordText.Password;
+                labelOpenFile.Content = login;
+                labelOpenInstallFile.Content = password;
+            }
+        }
+        private void btnLogout(object sender, RoutedEventArgs e)
+        {
+
         }
         private void btnOpenFile_Click(object sender, RoutedEventArgs e)
         {
