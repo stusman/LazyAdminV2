@@ -17,5 +17,9 @@
         <PasswordBox PasswordChar="*" HorizontalAlignment="Left" Height="20" Margin="304,41,0,0" Width="215" VerticalAlignment="Top"/>
         <Button Content="Login" HorizontalAlignment="Left" Height="25" Margin="539,36,0,0" VerticalAlignment="Top" Width="108"/>
         <Button Content="Logout" HorizontalAlignment="Left" Height="25" Margin="669,36,0,0" VerticalAlignment="Top" Width="108"/>
+        <WrapPanel HorizontalAlignment="Center" DockPanel.Dock="Top" Margin="100,150,0,10">
+            <Button x:Name="btnOpenFile" Width="150" Height="30" Click="btnOpenFile_Click" Content="Open file"/>
+        </WrapPanel>
+        <ListBox Name="listOpenFile" Width="350" Height="30" HorizontalAlignment="Left" Margin="10,-88,0,0"/>
     </Grid>
 </Window>
