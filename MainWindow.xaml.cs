@@ -34,8 +34,8 @@ namespace LazyAdmin
             {
                 login = loginText.Text;
                 password = passwordText.Password;
-                labelOpenFile.Content = login;
-                labelOpenInstallFile.Content = password;
+                labelOpenFile.Content = "Your login: " + login;
+                labelOpenInstallFile.Content = "Your password: " + password;
             }
         }
         private void btnLogout(object sender, RoutedEventArgs e)
