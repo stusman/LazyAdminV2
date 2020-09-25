@@ -20,6 +20,12 @@
         <WrapPanel HorizontalAlignment="Center" DockPanel.Dock="Top" Margin="100,150,0,10">
             <Button x:Name="btnOpenFile" Width="150" Height="30" Click="btnOpenFile_Click" Content="Open file"/>
         </WrapPanel>
-        <ListBox Name="listOpenFile" Width="350" Height="30" HorizontalAlignment="Left" Margin="10,-88,0,0"/>
+        <Label Name="labelOpenFile" Width="350" Height="30" HorizontalAlignment="Left" Margin="10,-88,0,0"/>
+        <Label Content="Select .txt file class:" HorizontalAlignment="Left" Height="26" Margin="10,121,0,0" VerticalAlignment="Top" Width="127" RenderTransformOrigin="0.539,1.127"/>
+        <WrapPanel HorizontalAlignment="Center" DockPanel.Dock="Top" Margin="100,215,0,10">
+            <Button x:Name="btnOpenInstallFile" Width="150" Height="30" Click="btnOpenInstallFile_Click" Content="Open Install file"/>
+        </WrapPanel>
+        <Label Name="labelOpenInstallFile" Width="350" Height="30" HorizontalAlignment="Left" Margin="10,40,0,0"/>
+        <Label Content="Select file for install" HorizontalAlignment="Left" Height="26" Margin="10,191,0,0" VerticalAlignment="Top" Width="127" RenderTransformOrigin="0.539,1.127"/>
     </Grid>
 </Window>

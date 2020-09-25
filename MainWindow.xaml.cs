@@ -36,7 +36,21 @@ namespace LazyAdmin
             {
                 foreach (string filename in openFileDialog.FileNames) 
                 { 
-                    listOpenFile.Items.Add(System.IO.Path.GetFullPath(filename));
+                    labelOpenFile.Content = System.IO.Path.GetFullPath(filename);
+                }
+            }
+        }
+        private void btnOpenInstallFile_Click(object sender, RoutedEventArgs e)
+        {
+            OpenFileDialog openFileDialog = new OpenFileDialog();
+            openFileDialog.Multiselect = true;
+            openFileDialog.Filter = "All files (*.*)|*.*";
+            openFileDialog.InitialDirectory = Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments);
+            if (openFileDialog.ShowDialog() == true)
+            {
+                foreach (string filename in openFileDialog.FileNames)
+                {
+                    labelOpenInstallFile.Content=System.IO.Path.GetFullPath(filename);
                 }
             }
         }
