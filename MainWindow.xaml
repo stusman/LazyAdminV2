@@ -5,7 +5,7 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:LazyAdmin"
         mc:Ignorable="d"
-        Title="MainWindow" Height="450" Width="800">
+        Title="A YOU LAZY FUCKING ADMIN" Height="450" Width="800">
     <Grid>
         <Button Content="Power ON" HorizontalAlignment="Left" Height="48" Margin="20,340,0,0" VerticalAlignment="Top" Width="150"/>
         <Button Content="Power Off" HorizontalAlignment="Left" Height="48" Margin="218,340,0,0" VerticalAlignment="Top" Width="150"/>
@@ -27,5 +27,8 @@
         </WrapPanel>
         <Label Name="labelOpenInstallFile" Width="350" Height="30" HorizontalAlignment="Left" Margin="10,40,0,0"/>
         <Label Content="Select file for install" HorizontalAlignment="Left" Height="26" Margin="10,191,0,0" VerticalAlignment="Top" Width="127" RenderTransformOrigin="0.539,1.127"/>
+        <TextBox Name="lableUninstallSoft" HorizontalAlignment="Left" Height="20" Margin="10,276,0,0" TextWrapping="Wrap" Text="Your program" VerticalAlignment="Top" Width="248"/>
+        <Button Content="Enter File" Click="enterNameFileForUninstallBtn" Name="btnEnterNameFileForUninstall"  HorizontalAlignment="Left" Height="20" Margin="372,276,0,0" VerticalAlignment="Top" Width="146"/>
+        <Label Content="Enter name program for uninstall" HorizontalAlignment="Left" Height="26" Margin="10,245,0,0" VerticalAlignment="Top" Width="188"/>
     </Grid>
 </Window>

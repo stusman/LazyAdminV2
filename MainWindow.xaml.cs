@@ -24,6 +24,7 @@ namespace LazyAdmin
     {
         static string login = "abrakadabra";
         static string password = "abrakadabra";
+        static string uninstallProgram;
         public MainWindow()
         {
             InitializeComponent();
@@ -41,6 +42,13 @@ namespace LazyAdmin
         private void btnLogout(object sender, RoutedEventArgs e)
         {
 
+        }
+        private void enterNameFileForUninstallBtn(object sender, RoutedEventArgs e)
+        {
+            if(lableUninstallSoft.Text.Length > 0)
+            {
+                uninstallProgram = lableUninstallSoft.Text;
+            }
         }
         private void btnOpenFile_Click(object sender, RoutedEventArgs e)
         {
