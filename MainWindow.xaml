@@ -5,7 +5,7 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:LazyAdmin"
         mc:Ignorable="d"
-        Title="A YOU LAZY FUCKING ADMIN" Height="450" Width="800">
+        Title="YOU ARE LAZY FUCKING ADMIN" Height="450" Width="800">
     <Grid>
         <Button Content="Power ON" HorizontalAlignment="Left" Height="48" Margin="20,340,0,0" VerticalAlignment="Top" Width="150"/>
         <Button Content="Power Off" HorizontalAlignment="Left" Height="48" Margin="218,340,0,0" VerticalAlignment="Top" Width="150"/>
