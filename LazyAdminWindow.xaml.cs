@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Microsoft.Win32;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -19,6 +20,7 @@ namespace LazyAdmin
     /// </summary>
     public partial class LazyAdminWindow : Window
     {
+        string login, password;
         public LazyAdminWindow()
         {
             InitializeComponent();
@@ -27,17 +29,60 @@ namespace LazyAdmin
         private void TextBox_GotFocus(object sender, RoutedEventArgs e)
         {
             TextBox textBox = sender as TextBox;
-            if (textBox.Text == "ENTER LOGIN HERE")
+            if (textBox.Name == "fileNameTB")
             {
-                textBox.Text = "";
+                if (textBox.Text == "ENTER FILE NAME HERE")
+                {
+                    textBox.Text = "";
+                }
+            }
+            else
+            {
+                if (textBox.Text == "ENTER LOGIN HERE")
+                {
+                    textBox.Text = "";
+                }
             }
         }
 
         private void TextBox_LostFocus(object sender, RoutedEventArgs e)
         {
             TextBox textBox = sender as TextBox;
-            if (string.IsNullOrWhiteSpace(textBox.Text))
-                textBox.Text = "ENTER LOGIN HERE";
+            if (textBox.Name == "fileNameTB")
+            {
+                if (string.IsNullOrWhiteSpace(textBox.Text))
+                    textBox.Text = "ENTER FILE NAME HERE";
+            }
+            else
+            {
+                if (string.IsNullOrWhiteSpace(textBox.Text))
+                    textBox.Text = "ENTER LOGIN HERE";
+            }
+        }
+
+        private void ClickSelectFile(object sender, RoutedEventArgs e)
+        {
+            Button btn = sender as Button;
+            OpenFileDialog openFileDialog = new OpenFileDialog();
+            if("Select txt file" == btn.Content.ToString())
+            {
+                openFileDialog.Filter = "Text files (*.txt)|*.txt";
+            }
+            else if("Select exe file" == btn.Content.ToString())
+            {
+                openFileDialog.Filter = "Executable files (*.exe)|*.exe";
+            }
+            if(openFileDialog.ShowDialog() == true)
+            {
+                if ("Select txt file" == btn.Content.ToString())
+                {
+                    ipsLbl.Content = openFileDialog.FileName;
+                }
+                else if ("Select exe file" == btn.Content.ToString())
+                {
+                    instalFileLbl.Content = openFileDialog.FileName;
+                }
+            }
         }
     }
 }
