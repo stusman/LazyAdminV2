@@ -79,7 +79,7 @@
                 <ColumnDefinition/>
             </Grid.ColumnDefinitions>
             <Button Grid.Column="0" Content="Power ON" FontSize="20" Margin="10"/>
-            <Button Grid.Column="1" Content="Power OFF" FontSize="20" Margin="10"/>
+            <Button Name="PowerOffBtn" Grid.Column="1" Content="Power OFF" FontSize="20" Margin="10"/>
             <Button Grid.Column="2" Content="Instal program" FontSize="20" Margin="10"/>
             <Button Grid.Column="3" Content="Uninstal program" FontSize="20" Margin="10"/>
         </Grid>
