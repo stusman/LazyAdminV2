@@ -2,23 +2,11 @@
 using System;
 using System.Collections.Generic;
 using System.Diagnostics;
-using System.Globalization;
 using System.IO;
 using System.Linq;
 using System.Net;
-using System.Net.NetworkInformation;
-using System.Net.Sockets;
-using System.Text;
-using System.Text.RegularExpressions;
-using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
-using System.Windows.Data;
-using System.Windows.Documents;
-using System.Windows.Input;
-using System.Windows.Media;
-using System.Windows.Media.Imaging;
-using System.Windows.Shapes;
 
 namespace LazyAdmin
 {
@@ -55,7 +43,18 @@ namespace LazyAdmin
         public LazyAdminWindow()
         {
             InitializeComponent();
-            WOL.WakeOnLan(macAddress);
+            // WOL.WakeOnLan(macAddress);
+            InitializeGetIPsAndMac();
+            
+            foreach(PCInfo pCInfo in list)
+            {
+                string hostName = "Uknown";
+                try
+                {
+                    hostName = Dns.GetHostEntry(pCInfo.IP).HostName;
+                }catch(Exception e) { }
+                pCInfo.HOSTNAME = hostName;
+            }
         }
 
         private void TextBox_GotFocus(object sender, RoutedEventArgs e)
@@ -116,76 +115,62 @@ namespace LazyAdmin
                 }
             }
         }
+
+
+        private static List<PCInfo> list;
+
+        private static StreamReader ExecuteCommandLine(String file, String arguments = "")
+        {
+            ProcessStartInfo startInfo = new ProcessStartInfo();
+            startInfo.CreateNoWindow = true;
+            startInfo.WindowStyle = ProcessWindowStyle.Hidden;
+            startInfo.UseShellExecute = false;
+            startInfo.RedirectStandardOutput = true;
+            startInfo.FileName = file;
+            startInfo.Arguments = arguments;
+
+            Process process = Process.Start(startInfo);
+
+            return process.StandardOutput;
+        }
+
+        private void Button_Click(object sender, RoutedEventArgs e)
+        {
+            Window1 window = new Window1();
+            window.listView.ItemsSource = list;
+            window.ShowDialog();
+        }
+
+        private static void InitializeGetIPsAndMac()
+        {
+            if (list != null)
+                return;
+
+            var arpStream = ExecuteCommandLine("arp", "-a");
+            List<string> result = new List<string>();
+            while (!arpStream.EndOfStream)
+            {
+                var line = arpStream.ReadLine().Trim();
+                result.Add(line);
+            }
+
+            list = result.Where(x => !string.IsNullOrEmpty(x) && (x.Contains("dynamic") || x.Contains("static")))
+                .Select(x =>
+                {
+                    string[] parts = x.Split(new string[] { " " }, StringSplitOptions.RemoveEmptyEntries);
+                    return new PCInfo { IP = parts[0].Trim(), MAC = parts[1].Trim() };
+                }).ToList();
+        }
+        void CopyFile()
+        {
+            System.IO.File.Copy("sourcePath", "\\machinename\\DriveLetter$\folder name");
+        }
     }
-    public static class WOL
+
+    class PCInfo
     {
-
-        public static async Task WakeOnLan(string macAddress)
-        {
-            byte[] magicPacket = BuildMagicPacket(macAddress);
-            foreach (NetworkInterface networkInterface in NetworkInterface.GetAllNetworkInterfaces().Where((n) =>
-                n.NetworkInterfaceType != NetworkInterfaceType.Loopback && n.OperationalStatus == OperationalStatus.Up))
-            {
-                IPInterfaceProperties iPInterfaceProperties = networkInterface.GetIPProperties();
-                foreach (MulticastIPAddressInformation multicastIPAddressInformation in iPInterfaceProperties.MulticastAddresses)
-                {
-                    IPAddress multicastIpAddress = multicastIPAddressInformation.Address;
-                    if (multicastIpAddress.ToString().StartsWith("ff02::1%", StringComparison.OrdinalIgnoreCase)) // Ipv6: All hosts on LAN (with zone index)
-                    {
-                        UnicastIPAddressInformation unicastIPAddressInformation = iPInterfaceProperties.UnicastAddresses.Where((u) =>
-                            u.Address.AddressFamily == AddressFamily.InterNetworkV6 && !u.Address.IsIPv6LinkLocal).FirstOrDefault();
-                        if (unicastIPAddressInformation != null)
-                        {
-                            await SendWakeOnLan(unicastIPAddressInformation.Address, multicastIpAddress, magicPacket);
-                            break;
-                        }
-                    }
-                    else if (multicastIpAddress.ToString().Equals("224.0.0.1")) // Ipv4: All hosts on LAN
-                    {
-                        UnicastIPAddressInformation unicastIPAddressInformation = iPInterfaceProperties.UnicastAddresses.Where((u) =>
-                            u.Address.AddressFamily == AddressFamily.InterNetwork && !iPInterfaceProperties.GetIPv4Properties().IsAutomaticPrivateAddressingActive).FirstOrDefault();
-                        if (unicastIPAddressInformation != null)
-                        {
-                            await SendWakeOnLan(unicastIPAddressInformation.Address, multicastIpAddress, magicPacket);
-                            break;
-                        }
-                    }
-                }
-            }
-        }
-
-        static byte[] BuildMagicPacket(string macAddress) // MacAddress in any standard HEX format
-        {
-            macAddress = Regex.Replace(macAddress, "[: -]", "");
-            byte[] macBytes = new byte[6];
-            for (int i = 0; i < 6; i++)
-            {
-                macBytes[i] = Convert.ToByte(macAddress.Substring(i * 2, 2), 16);
-            }
-
-            using (MemoryStream ms = new MemoryStream())
-            {
-                using (BinaryWriter bw = new BinaryWriter(ms))
-                {
-                    for (int i = 0; i < 6; i++)  //First 6 times 0xff
-                    {
-                        bw.Write((byte)0xff);
-                    }
-                    for (int i = 0; i < 16; i++) // then 16 times MacAddress
-                    {
-                        bw.Write(macBytes);
-                    }
-                }
-                return ms.ToArray(); // 102 bytes magic packet
-            }
-        }
-
-        static async Task SendWakeOnLan(IPAddress localIpAddress, IPAddress multicastIpAddress, byte[] magicPacket)
-        {
-            using (UdpClient client = new UdpClient(new IPEndPoint(localIpAddress, 0)))
-            {
-                await client.SendAsync(magicPacket, magicPacket.Length, multicastIpAddress.ToString(), 9);
-            }
-        }
+        public string IP { get; set; }
+        public string MAC { get; set; }
+        public string HOSTNAME { get; set; }
     }
 }

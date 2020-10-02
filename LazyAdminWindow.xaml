@@ -69,7 +69,7 @@
                 <Label Content="Enter filname to uninstall:" HorizontalAlignment="Center" VerticalAlignment="Center" FontSize="20"/>
                 <TextBox Name="fileNameTB" Grid.Row="1"  Text="ENTER FILE NAME HERE" GotFocus="TextBox_GotFocus" LostFocus="TextBox_LostFocus" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" FontSize="20" Background="AliceBlue" Margin="5"/>
             </Grid>
-            <Button Grid.Column="1" Content="Select file" FontSize="20" Margin="20"/>
+            <Button Click="Button_Click" Grid.Column="1" Content="Select file" FontSize="20" Margin="20"/>
         </Grid>
         <Grid Grid.Row="4">
             <Grid.ColumnDefinitions>
